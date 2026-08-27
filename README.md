@@ -49,23 +49,12 @@ Active local model configured by MIMOE_MODEL
 
 ## Configuration
 
-The application does **not** contain a fixed IP address, port, key, or model name. It loads `.env` with `python-dotenv`, then `Config.from_environment()` reads these four environment variables:
-
 | Variable | What to enter | Where to find it |
 | --- | --- | --- |
 | `MIMOE_BASE_URL` | Complete inference base URL | mimOE Studio API dialog |
 | `MIMOE_API_KEY` | API key | mimOE Studio API dialog |
 | `MIMOE_MODEL` | Exact active model identifier | mimOE Studio Model/API view |
 | `MIMOE_TIMEOUT` | Request timeout in seconds | Optional; `60` is a reasonable default |
-
-These values cannot all be discovered safely in a universal way. The program must know the address and key before it can contact mimOE, and a user may have more than one model available. For that reason, mimOE Studio's API dialog is the source of truth.
-
-Two files keep configuration simple and safe:
-
-- `.env.example` is a public template included in GitHub. It contains generic placeholders.
-- `.env` is each user's private local configuration. Git ignores it, so it is not uploaded.
-
-If mimOE and this CLI run on the same computer, `http://localhost:8083/mimik-ai/openai/v1` is the natural URL to try first. If mimOE Studio displays another address or port, use the displayed value instead. The traceable inference URL can also be used by assigning its complete value to `MIMOE_BASE_URL`; the Python code does not need to change.
 
 ## Setup
 
@@ -154,8 +143,6 @@ The program explains the most likely action for common failures:
 - HTTP 401 or 403: verify `MIMOE_API_KEY`.
 - HTTP 404: verify the base URL and loaded model name.
 - Invalid local configuration: compare `.env` with `.env.example`.
-
-If another computer runs this CLI, the mimOE host address and port must be reachable from it, and local firewall rules must allow the configured port.
 
 ## Design limitations
 
